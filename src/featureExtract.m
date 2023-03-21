@@ -24,36 +24,41 @@ sizeC = floor(c / nBlocks);
 
 % initialized as a zero vector of length 294, six times the number of blocks squared
 featureVector = zeros(1, 294);
-currentFeature = 1;
-currentR = 1;
-currentC = 1;
+k = 1;
 
 for rows=0:nBlocks-1
     for cols=0:nBlocks-1
+
     x1 = rows*sizeR+1;
     y1 = cols*sizeC+1;
     x2 = min(x1+sizeR-1, r);
     y2 = min(y1+sizeC-1, c);
+
     Lblock = temp(x1:x2, y1:y2, 1);
     avgL = mean(mean(Lblock));
-    vector(k) = avgL;
+    featureVector(k) = avgL;
     k = k+1;
+
     sdL = std(Lblock(:));
-    vector(k) = sdL;
+    featureVector(k) = sdL;
     k = k+1;
+
     Sblock = temp(x1:x2, y1:y2, 2);
     avgS = mean(mean(Sblock));
-    vector(k) = avgS;
+    featureVector(k) = avgS;
     k = k+1;
+
     sdS = std(Sblock(:));
-    vector(k) = sdS;
+    featureVector(k) = sdS;
     k = k+1;
+
     Tblock = temp(x1:x2, y1:y2, 3);
     avgT = mean(Tblock(:));
-    vector(k) = avgT;
+    featureVector(k) = avgT;
     k = k+1;
+    
     sdT = std(Tblock(:));
-    vector(k) = sdT;
+    featureVector(k) = sdT;
     k = k+1;
     end
 end
